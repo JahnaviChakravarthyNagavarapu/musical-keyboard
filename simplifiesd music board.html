@@ -1,0 +1,108 @@
+<html>
+<style>
+    .buttonposition {
+        position: absolute;
+        top: 40%;
+        left: 30%;
+
+    }
+
+    .buttondisplay {
+        font-size: 100%;
+        color: white;
+        background-color: transparent;
+        height: 100px;
+        width: 100px;
+        opacity: 1;
+        border: 2px solid white;
+    }
+
+    .mystyle {
+        scale: (2, 2);
+        opacity: 3;
+        color: yellow;
+        background-color: tomato;
+    }
+
+    .bg {
+        background-image: url("PIANO.jpg");
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+    }
+
+    p {
+        font-size: 14px;
+        color: yellow;
+    }
+</style>
+
+
+<body class="bg" onkeydown="keypressed(event)">
+
+
+
+
+    <div class="buttonposition px-2">
+
+        <button onclick="playAudio(this)" class="buttondisplay" type="button" id="a" audio-clip="clap"><b>A</b><br>
+            <p>clap</p>
+        </button>
+        <button onclick="playAudio(this)" class="buttondisplay" type="button" id="s" audio-clip="hihat"><b>S</b><br>
+            <p>hihat</p>
+        </button>
+        <button onclick="playAudio(this)" class="buttondisplay" type="button" id="d" audio-clip="kick"><b>D</b><br>
+            <p>kick</p>
+        </button>
+        <button onclick="playAudio(this)" class="buttondisplay" type="button" id="f" audio-clip="openhat"><b>F</b><br>
+            <p>openhat</p>
+        </button>
+        <button onclick="playAudio(this)" class="buttondisplay" type="button" id="g" audio-clip="boom"><b>G</b><br>
+            <p>boom</p>
+        </button>
+        <button onclick="playAudio(this)" class="buttondisplay" type="button" id="h" audio-clip="ride"><b>H</b><br>
+            <p>ride</p>
+        </button>
+        <button onclick="playAudio(this)" class="buttondisplay" type="button" id="j" audio-clip="snare"><b>J</b><br>
+            <p>snare</p>
+        </button>
+        <button onclick="playAudio(this)" class="buttondisplay" type="button" id="k" audio-clip="tom"><b>K</b><br>
+            <p>tom</p>
+        </button>
+        <button onclick="playAudio(this)" class="buttondisplay" type="button" id="l" audio-clip="tink"><b>L</b><br>
+            <p>tink</p>
+        </button>
+    </div>
+
+
+
+    <script>
+        var clipsplayed = [];
+        function keypressed(event) {
+            var ch = event.key;
+            document.getElementById(ch.toLowerCase()).click();
+        }
+
+
+        function playAudio(event) {
+
+            var clipname = event.getAttribute("audio-clip");
+            var clip = new Audio(`${clipname}.wav`);
+
+            clipsplayed.push(clipname)
+            localStorage.setItem("clipsplayed-data", JSON.stringify(clipsplayed))
+            clip.play();
+            document.getElementById(event.getAttribute("id")).classList.add("mystyle");
+            setInterval(() => {
+                document.getElementById(event.getAttribute("id")).classList.remove("mystyle");
+
+            }, 1000);
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
